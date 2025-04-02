@@ -8,7 +8,7 @@ public class TrackCoffeeCharges {
     private static Random random = new Random();
     private static Map<String, Map<String, Double>> amountsowed = new HashMap<>();
     private static boolean useRoundRobin = true;
-
+    private static double owedAmount = 0.0;
     public static void main(String[] args) {
         //System.out.println("Hello, World!");
         Scanner scanner = new Scanner(System.in);
@@ -78,22 +78,35 @@ public class TrackCoffeeCharges {
             //Finding the difference of amount between the payer and the member.
             double diffAmount = dailyOrders.get(member) - dailyOrders.get(payingMember);
             System.out.printf("Diff Amount of " + member + " is %.2f\n", diffAmount);
-            if (diffAmount != 0) {
+            if (!member.equals(payingMember)){
+                owedAmount = dailyOrders.get(member); // Full amount
+
                 amountsowed.computeIfAbsent(member, k -> new HashMap<>());
                 amountsowed.computeIfAbsent(payingMember, k -> new HashMap<>());
 
-                if (diffAmount < 0) {
-                    //Here paying member owes the other person as the diff is negative
-                    amountsowed.get(member).merge(payingMember, Math.abs(diffAmount), Double::sum);
-                    amountsowed.get(payingMember).merge(member, -Math.abs(diffAmount), Double::sum);
-                    System.out.printf("%s owes %s $%.2f\n", payingMember, member, Math.abs(diffAmount));
-                } else if (diffAmount > 0) {
-                    //Here member needs to owe the payer
-                    amountsowed.get(payingMember).merge(member, diffAmount, Double::sum);
-                    amountsowed.get(member).merge(payingMember, -diffAmount, Double::sum);
-                    System.out.printf("%s owes %s $%.2f\n", member, payingMember, diffAmount);
-                }
+                amountsowed.get(payingMember).merge(member, owedAmount, Double::sum);
+                amountsowed.get(member).merge(payingMember, -owedAmount, Double::sum);
+
+                System.out.printf("%s owes %s $%.2f\n", member, payingMember, owedAmount);
             }
+
+/* This is a Different Logic
+//            if (diffAmount != 0) {
+//                amountsowed.computeIfAbsent(member, k -> new HashMap<>());
+//                amountsowed.computeIfAbsent(payingMember, k -> new HashMap<>());
+//
+//                if (diffAmount < 0) {
+//                    //Here paying member owes the other person as the diff is negative
+//                    amountsowed.get(member).merge(payingMember, Math.abs(diffAmount), Double::sum);
+//                    amountsowed.get(payingMember).merge(member, -Math.abs(diffAmount), Double::sum);
+//                    System.out.printf("%s owes %s $%.2f\n", payingMember, member, Math.abs(diffAmount));
+//                } else if (diffAmount > 0) {
+//                    //Here member needs to owe the payer
+//                    amountsowed.get(payingMember).merge(member, diffAmount, Double::sum);
+//                    amountsowed.get(member).merge(payingMember, -diffAmount, Double::sum);
+//                    System.out.printf("%s owes %s $%.2f\n", member, payingMember, diffAmount);
+//                }
+//            } */
         }
         dailyOrders.clear();
         //function finishes with this
