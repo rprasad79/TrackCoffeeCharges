@@ -104,7 +104,7 @@ public class TrackCoffeeCharges {
         amountsowed.forEach((person, owes) -> {
             owes.forEach((oweTo, amount) -> {
                 if (amount > 0) {
-                    System.out.printf("%s owes %s $%.2f\n", person, oweTo, amount);
+                    System.out.printf("%s owes %s $%.2f\n", oweTo, person, amount);
                 }
             });
         });
