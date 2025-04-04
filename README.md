@@ -7,14 +7,20 @@ Explanation:
 6. The method for selecting the user can be changed to roundrobin or random.
 
 Usage:
-1. Run the TrackCoffeeCharges.exe from the command prompt and will be presented with the menu option
-2. Enter the daily expense and can calulate the total amount owed which can be tracked in the program.
-3. The application needs to be running through out so that on a daily basis the amount can be entered and the calculation will adjust accordingly.
+1. Clone the repository on to the local drive and open the project in any IDE (IntelliJ or VSCode)
+2. Compile the code by running javac TrackCoffeeCharges.java
+3. This will create a class file and the same needs to be executed by "java TrackCoffeeCharges"
+4. Once the program start running it will present you the menu option to add the daily orders
+5. Enter the daily expense and choose option 2 and option 3 to calulate and display the the total amount owed by each person.
 
-Assumptions and Improvements:
-1. The program will be running through out and the person can enter the data on a daily basis.
-2. The program can be run daily, but then if we want to track the previous expenses then it will not be possible.
-3. Can improve the same by hard committing the final expense details on to a database or file system.
-4. Similarly the user details are hard coded in the code, the same can be maintained in config file as well
-5. More better approach would be to write these functions as REST API and have a javascript UI which takes input on a daily basis and persists the final details in database.
+
+Assumptions:
+1. The system is currenty hard coded with person names (5 persons).
+2. One person pay the whole amount for the single day and the others amount will be added to that person's credit. 
+3. The program can be run daily, but then if we want to track the previous expenses then it will not be possible.
+
+Improvements:
+1. Can improve the same by hard committing the final expense details on to a database or file system.
+2. Similarly the user details are hard coded in the code, the same can be maintained in config file as well
+3. More better approach would be to write these functions as REST API and have a javascript UI which takes input on a daily basis and persists the final details in database.
    
